@@ -53,13 +53,13 @@
     <aside id="sidebar" class="hidden lg:block w-64 bg-white border-r border-gray-200 h-screen sticky top-16">
         <nav class="p-6">
             <ul class="space-y-2">
-                <li>
-                    <a href="#"
-                        class="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 text-blue-700 font-medium border border-blue-200">
-                        <i data-lucide="bar-chart-3" class="h-5 w-5"></i>
-                        <span>Overview</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('main.index') }}"
+                            class="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 text-blue-700 font-medium border border-blue-200">
+                            <i data-lucide="bar-chart-3" class="h-5 w-5"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
                 <li>
                     <a href="#"
                         class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{ route('vendor.index') }}"
                         class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="box" class="h-5 w-5"></i>
                         <span>Product</span>
