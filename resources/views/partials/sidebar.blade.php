@@ -53,67 +53,74 @@
     <aside id="sidebar" class="hidden lg:block w-64 bg-white border-r border-gray-200 h-screen sticky top-16">
         <nav class="p-6">
             <ul class="space-y-2">
-                    <li>
-                        <a href="{{ route('main.index') }}"
-                            class="flex items-center space-x-3 p-3 rounded-lg bg-blue-50 text-blue-700 font-medium border border-blue-200">
-                            <i data-lucide="bar-chart-3" class="h-5 w-5"></i>
-                            <span>Overview</span>
-                        </a>
-                    </li>
+                <li>
+                    <a href="{{ route('main.index') }}"
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
+                        <i data-lucide="bar-chart-3" class="h-5 w-5"></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
                 <li>
                     <a href="#"
-                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="users" class="h-5 w-5"></i>
                         <span>Users</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('vendor.index') }}"
-                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="box" class="h-5 w-5"></i>
                         <span>Product</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#"
-                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                    <a href="{{ route('orders.index') }}"
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="shopping-cart" class="h-5 w-5"></i>
-                        <span>Orders</span>
+                        <span>Orders POS</span>
                     </a>
                 </li>
                 <li>
                     <a href="#"
-                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="trending-up" class="h-5 w-5"></i>
                         <span>Analytics</span>
                     </a>
                 </li>
                 <li>
                     <a href="#"
-                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="credit-card" class="h-5 w-5"></i>
                         <span>Payments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                        class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 transition-colors">
+                        <i data-lucide="help-circle" class="h-5 w-5"></i>
+                        <span>Help</span>
                     </a>
                 </li>
             </ul>
 
             <!-- Bottom Menu -->
             <div class="mt-8 pt-8 border-t border-gray-200">
+
                 <ul class="space-y-2">
+
                     <li>
-                        <a href="#"
-                            class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                            <i data-lucide="help-circle" class="h-5 w-5"></i>
-                            <span>Help</span>
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-red-50 transition-colors w-full text-left">
+                                <i data-lucide="log-out" class="h-5 w-5"></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
                     </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                            <i data-lucide="log-out" class="h-5 w-5"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </nav>

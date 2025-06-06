@@ -18,10 +18,10 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600 mb-1">Total Produk</p>
-                            <p class="text-3xl font-bold text-gray-900">2,847</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ $countProduct }}</p>
                         </div>
                         <div class="p-3 bg-blue-100 rounded-full">
-                            <i data-lucide="users" class="h-6 w-6 text-blue-600"></i>
+                            <i data-lucide="box" class="h-6 w-6 text-blue-600"></i>
                         </div>
                     </div>
                     <div class="mt-4 flex items-center">
@@ -83,7 +83,7 @@
                     style="animation-delay: 0.3s;">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-gray-600 mb-1">Terjual</p>
+                            <p class="text-sm font-medium text-gray-600 mb-1">Processment Order</p>
                             <p class="text-3xl font-bold text-gray-900">3.2%</p>
                         </div>
                         <div class="p-3 bg-orange-100 rounded-full">
@@ -206,8 +206,8 @@
                             <button
                                 class="w-full flex items-center space-x-3 p-3 rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors group">
                                 <i data-lucide="plus" class="h-5 w-5 text-gray-400 group-hover:text-blue-500"></i>
-                                <span class="text-sm font-medium text-gray-700 group-hover:text-blue-700">Add New
-                                    Product</span>
+                                <a  href="{{ route('vendor.create') }}"><span class="text-sm font-medium text-gray-700 group-hover:text-blue-700">Add New
+                                    Product</span></a>
                             </button>
 
                             <button
