@@ -1,72 +1,73 @@
 <?php
 
-namespace App\Http\Controllers\Vendor;
+namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Order;
+use App\Models\Orders;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 
 class PosController extends Controller
 {
-    public function create()
+    public function index()
     {
         $products = Product::all();
         $users = Auth::User();
-        return view('orders.POS', compact('products','users'));
+        return view('orders.POS', compact('products', 'users'));
     }
 
-   public function store(Request $request)
+    public function store(Request $request)
 {
-    $product = Product::findOrFail($request->product_id);
+    try {
+        $validated = $request->validate([
+            'products' => 'required|array',
+            'products.*.product_id' => 'required|exists:products,id',
+            'products.*.quantity' => 'required|integer|min:1',
+            'payment_method' => 'required|in:cash,midtrans,qris',
+        ]);
 
-    // Pastikan stok mencukupi
-    if ($product->stock < $request->quantity) {
-        return redirect()->back()->with('error', 'Stok tidak mencukupi!');
+        $order = DB::transaction(function () use ($validated) {
+            $total = 0;
+
+            $order = Orders::create([
+                'payment_method' => $validated['payment_method'],
+                'total_price' => 0
+            ]);
+
+            foreach ($validated['products'] as $item) {
+                $product = Product::findOrFail($item['product_id']);
+
+                if ($product->stock < $item['quantity']) {
+                    throw new \Exception("Stok {$product->name} tidak cukup.");
+                }
+
+                $product->decrement('stock', $item['quantity']);
+
+                $itemTotal = $product->price * $item['quantity'];
+                $total += $itemTotal;
+
+                $order->items()->create([
+                    'product_id' => $product->id,
+                    'quantity' => $item['quantity'],
+                    'price' => $product->price,
+                ]);
+            }
+
+            $order->update(['total_price' => $total]);
+
+            return $order;
+        });
+
+        return redirect()->route('pos.store')->with('success', '✅ Order berhasil dibuat! Nomor Order: ' . $order->id);
+
+    } catch (\Exception $e) {
+        Log::error('Order creation failed: ' . $e->getMessage());
+        return redirect()->back()->with('error', '❌ Gagal membuat order: ' . $e->getMessage());
     }
-
-    $total = $product->price * $request->quantity;
-
-    // Buat order
-    $order = Order::create([
-        'product_id' => $product->id,
-        'quantity' => $request->quantity,
-        'total_price' => $total,
-        'status' => 'processing',
-        'payment_method' => $request->payment_method,
-    ]);
-
-    // Kurangi stok produk
-    $product->stock -= $request->quantity;
-    $product->save();
-
-    return redirect()->back()->with('success', 'Order berhasil dibuat dan stok dikurangi!');
 }
 
-
-    public function edit($id)
-    {
-        $users = Auth::User();
-        $order = Order::findOrFail($id);
-        $products = Product::all();
-        return view('orders.POS', compact('order', 'products','users'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $users = Auth::User();
-        $order = Order::findOrFail($id);
-        $order->update($request->all());
-
-        return redirect()->back()->with('success', 'Order updated!');
-    }
-
-    public function destroy($id)
-    {
-        $users = Auth::User();
-        Order::destroy($id);
-        return redirect()->back()->with('success', 'Order deleted.');
-    }
 }

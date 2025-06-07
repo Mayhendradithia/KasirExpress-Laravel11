@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('orders', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-            $table->decimal('total_price', 10, 2);
-            $table->enum('status', ['processing', 'success'])->default('processing');
             $table->enum('payment_method', ['cash', 'midtrans', 'qris'])->default('cash');
-            $table->string('payment_reference')->nullable(); // untuk ID dari Midtrans nanti
+            $table->decimal('total_price', 15, 2)->default(0);
             $table->timestamps();
         });
     }

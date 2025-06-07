@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,8 +16,11 @@ class UserController extends Controller
 
         $users =Auth::User();
         $countProduct = Product::count();
+        $countOrders = Orders::count();
 
-        return view('main.index', compact('users','countProduct'));
+        $totalRevenue = Orders::sum('total_price');
+
+        return view('main.index', compact('users','countProduct','countOrders','totalRevenue'));
 
     }
         

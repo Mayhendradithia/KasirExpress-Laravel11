@@ -40,7 +40,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm font-medium text-gray-600 mb-1">Keuangan</p>
-                            <p class="text-3xl font-bold text-gray-900">Rp 45,231,000</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ number_format($totalRevenue, 0, ',', '.') }}</p>
                         </div>
                         <div class="p-3 bg-green-100 rounded-full">
                             <i data-lucide="trending-up" class="h-6 w-6 text-green-600"></i>
@@ -61,8 +61,8 @@
                     style="animation-delay: 0.2s;">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm font-medium text-gray-600 mb-1">Order Online</p>
-                            <p class="text-3xl font-bold text-gray-900">1,523</p>
+                            <p class="text-sm font-medium text-gray-600 mb-1">Total Order</p>
+                            <p class="text-3xl font-bold text-gray-900">{{ $countOrders }}</p>
                         </div>
                         <div class="p-3 bg-purple-100 rounded-full">
                             <i data-lucide="shopping-cart" class="h-6 w-6 text-purple-600"></i>

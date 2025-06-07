@@ -19,7 +19,21 @@
 
             <!-- Order Form -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-                <form action="{{ route('orders.store') }}" method="POST" class="p-6 space-y-6">
+
+                @if (session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+
+                <form action="{{ route('pos.store') }}" method="POST" class="p-6 space-y-6">
                     @csrf
 
                     <!-- Product Selection -->
@@ -127,7 +141,7 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    
+
                     <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200">
                         <button type="button" onclick="window.location.reload();"
                             class="flex-1 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-red-200 transition-colors duration-200 flex items-center justify-center">
@@ -139,7 +153,7 @@
                         </button>
 
 
-                        
+
 
                         <button type="submit"
                             class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all duration-200 flex items-center justify-center">
@@ -241,10 +255,10 @@
                 <select name="products[${productIndex}][product_id]" class="product-select w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white text-gray-900" required>
                     <option value="" disabled selected>Choose a product...</option>
                     ${products.map(product => `
-                                <option value="${product.id}" ${product.stock <= 0 ? 'disabled' : ''}>
-                                    ${product.name} (Stock: ${product.stock <= 0 ? 'Habis' : product.stock})
-                                </option>
-                            `).join('')}
+                                    <option value="${product.id}" ${product.stock <= 0 ? 'disabled' : ''}>
+                                        ${product.name} (Stock: ${product.stock <= 0 ? 'Habis' : product.stock})
+                                    </option>
+                                `).join('')}
                 </select>
 
                 <input type="number" name="products[${productIndex}][quantity]" class="quantity-input mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg" min="1" placeholder="Qty" required>
