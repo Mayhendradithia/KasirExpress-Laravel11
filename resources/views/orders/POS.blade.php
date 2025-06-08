@@ -33,7 +33,7 @@
                 @endif
 
 
-                <form action="{{ route('pos.store') }}" method="POST" class="p-6 space-y-6">
+                <form action="{{ route('orders.pos.store') }}" method="POST" class="p-6 space-y-6">
                     @csrf
 
                     <!-- Product Selection -->

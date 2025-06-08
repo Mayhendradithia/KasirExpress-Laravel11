@@ -75,7 +75,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pos.index') }}"
+                    <a href="{{ route('orders.pos.index') }}"
                         class="flex items-center space-x-3 p-3 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-gray-900 transition-colors">
                         <i data-lucide="shopping-cart" class="h-5 w-5"></i>
                         <span>Orders POS</span>

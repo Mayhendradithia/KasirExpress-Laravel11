@@ -62,7 +62,7 @@ class PosController extends Controller
             return $order;
         });
 
-        return redirect()->route('pos.store')->with('success', '✅ Order berhasil dibuat! Nomor Order: ' . $order->id);
+        return redirect()->route('orders.pos.index')->with('success', '✅ Order berhasil dibuat! Nomor Order: ' . $order->id);
 
     } catch (\Exception $e) {
         Log::error('Order creation failed: ' . $e->getMessage());
